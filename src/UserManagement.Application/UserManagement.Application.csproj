@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="9.2.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UserManagement.Domain\UserManagement.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>UserManagement.Application.UnitTests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup> 
+  
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+</Project>
