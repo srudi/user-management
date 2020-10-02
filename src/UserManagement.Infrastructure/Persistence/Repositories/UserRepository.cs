@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MongoDB.Driver;
+using UserManagement.Application.Common;
 using UserManagement.Application.Interfaces;
 using UserManagement.Infrastructure.Persistence.Contexts;
 using UserManagement.Infrastructure.Persistence.Contexts.Models;
@@ -16,7 +17,7 @@ namespace UserManagement.Infrastructure.Persistence.Repositories
         private readonly IMongoDbContext _context;
         private readonly IMapper _mapper;
 
-        public UserRepository(IMongoDbContext context,  IMapper mapper) : base(context)
+        public UserRepository(IMongoDbContext context, IMapper mapper) : base(context)
         {
             _context = context;
             _mapper = mapper;
@@ -46,11 +47,14 @@ namespace UserManagement.Infrastructure.Persistence.Repositories
             return _mapper.Map<DomainUser>(user);
         }
 
-        public async Task<IEnumerable<DomainUser>> GetAll(CancellationToken cancellationToken)
+        public async Task<PagedResult<DomainUser>> GetAll(PageInfo pageInfo, CancellationToken cancellationToken)
         {
-            // Hm, paging maybe???
-            var users = (await _context.Users.FindAsync(FilterDefinition<User>.Empty, null, cancellationToken)).ToList();
-            return _mapper.Map<IEnumerable<DomainUser>>(users);
+            var findOptions = new FindOptions<User, User> { Skip = pageInfo.CalculateSkip(), Limit = pageInfo.PageSize };
+
+            var users = (await _context.Users.FindAsync(FilterDefinition<User>.Empty, findOptions, cancellationToken)).ToList();
+            var domainUsers = _mapper.Map<IEnumerable<DomainUser>>(users);
+            pageInfo.TotalCount = await _context.Users.CountDocumentsAsync(FilterDefinition<User>.Empty, null, cancellationToken);
+            return new PagedResult<DomainUser>(domainUsers, pageInfo);
         }
 
         public async Task Update(DomainUser domainUser)

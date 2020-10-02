@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using Moq;
+using UserManagement.Application.Common;
 using UserManagement.Infrastructure.Persistence.Contexts;
 using UserManagement.Infrastructure.Persistence.Contexts.Models;
 using UserManagement.Infrastructure.Persistence.Exceptions;
@@ -105,25 +106,36 @@ namespace UserManagement.Infrastructure.UnitTests.Persistence
             await Assert.ThrowsAsync<DatabaseUpdateException>(async () => await _userRepository.Update(user));
         }
 
-        [Fact]
-        public async Task Call_GetAll_ShouldCall_FindAsyncOnDbContext_And_ReturnUsersList()
+        [Theory]
+        [InlineData(2,0,2)]
+        [InlineData(5,0,5)]
+        [InlineData(5,1,0)]
+        [InlineData(2,2,1)]
+        public async Task Call_GetAll_ShouldCall_FindAsyncOnDbContext_And_ReturnPagedUsersList(int pageSize, int pageIndex, int expcetedPagedUserCount)
         {
             // Arrange
+            var pageInfo = new PageInfo(pageSize, pageIndex);
             var users = new List<User>
             {
                 new User {  Id = 1, Name = "John" },
-                new User {  Id = 2, Name = "John" }
+                new User {  Id = 2, Name = "John" },
+                new User {  Id = 3, Name = "John" },
+                new User {  Id = 4, Name = "John" },
+                new User {  Id = 5, Name = "John" }
             };
 
-            FakeDbContextFactory.CreateMockCollection(_dbContextMock.Setup(db => db.Users), users);
+            var findOptions = new FindOptions<User, User> { Skip = pageInfo.CalculateSkip(), Limit = pageInfo.PageSize };
+            FakeDbContextFactory.CreateMockCollection(_dbContextMock.Setup(db => db.Users), users, findOptions);
 
             // Act
-            var actualUsers = await _userRepository.GetAll(CancellationToken.None);
-
+            var pagedUsers = await _userRepository.GetAll(pageInfo, CancellationToken.None);
 
             // Assert
-            Assert.Equal(users.Count(), actualUsers.Count());
-            _dbContextMock.Verify(db => db.Users.FindAsync<User>(FilterDefinition<User>.Empty, null, It.IsAny<CancellationToken>()), Times.Once);
+            Assert.Equal(expcetedPagedUserCount, pagedUsers.Result.Count());
+            Assert.Equal(pageSize, pagedUsers.PageInfo.PageSize);
+            Assert.Equal(pageIndex, pagedUsers.PageInfo.PageIndex);
+            Assert.Equal(users.Count(), pagedUsers.PageInfo.TotalCount);
+            _dbContextMock.Verify(db => db.Users.FindAsync(FilterDefinition<User>.Empty, It.IsAny<FindOptions<User, User>>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [Fact]

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using DomainUser = UserManagement.Domain.Entities.User;
-using DomainCompany = UserManagement.Domain.Entities.Company;
+using DomainCompany = UserManagement.Domain.ValueObjects.Company;
 using DomainGeo = UserManagement.Domain.Entities.Geo;
-using DomainAddress = UserManagement.Domain.Entities.Address;
+using DomainAddress = UserManagement.Domain.ValueObjects.Address;
 using UserManagement.Infrastructure.Persistence.Contexts.Models;
 
 namespace UserManagement.Infrastructure

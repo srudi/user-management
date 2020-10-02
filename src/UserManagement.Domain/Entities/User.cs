@@ -1,4 +1,6 @@
-﻿namespace UserManagement.Domain.Entities
+﻿using UserManagement.Domain.ValueObjects;
+
+namespace UserManagement.Domain.Entities
 {
     public class User
     {

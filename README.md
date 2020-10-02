@@ -18,6 +18,8 @@ http://localhost:5000/swagger/index.html
 
 Sample data for testing: https://jsonplaceholder.typicode.com/users
 
+Mongo Express: http://localhost:8081
+
 ## Unit tests
 Can be executed anytime, does not require MongoDb connection.
 

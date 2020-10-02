@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UserManagement.Application;
+using UserManagement.Application.Common;
 using UserManagement.Application.Services;
 using UserManagement.Domain.Entities;
 
@@ -25,9 +26,10 @@ namespace UserManagement.WebAPI.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<User>>> GetAll(CancellationToken cancellationToken)
+        public async Task<ActionResult<IEnumerable<User>>> GetAll(int pageSize, int pageIndex, CancellationToken cancellationToken)
         {
-            var users = await _userService.GetAll(cancellationToken);
+            var pageInfo = new PageInfo(pageSize: pageSize, pageIndex: pageIndex);
+            var users = await _userService.GetAll(pageInfo, cancellationToken);
             return Ok(users);
         }
 

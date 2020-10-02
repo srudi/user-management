@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
-using Microsoft.Extensions.Logging;
 using Moq;
 using System.Threading;
 using System.Threading.Tasks;
+using UserManagement.Application.Common;
 using UserManagement.Application.Exceptions;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.Services;
@@ -28,11 +28,14 @@ namespace UserManagement.Application.UnitTests
         [Fact]
         public async Task Given_ValidUserId_GetAll_CallsTheRepositoryGetAllMethod()
         {
+            // Arrange
+            var pageInfo = new PageInfo(0, 0);
+
             // Act 
-            await _userService.GetAll(default);
+            await _userService.GetAll(pageInfo,default);
 
             // Assert
-            _repositoryMock.Verify(r => r.GetAll(It.IsAny<CancellationToken>()), Times.Once);
+            _repositoryMock.Verify(r => r.GetAll(pageInfo, default), Times.Once);
         }
 
 

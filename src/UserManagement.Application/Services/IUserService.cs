@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using UserManagement.Application.Common;
 using UserManagement.Domain.Entities;
 
 namespace UserManagement.Application.Services
@@ -9,7 +9,7 @@ namespace UserManagement.Application.Services
     {
         Task<long> Create(User user);
         Task<User> Get(long id);
-        Task<IEnumerable<User>> GetAll(CancellationToken cancellationToken);
+        Task<PagedResult<User>> GetAll(PageInfo pageInfo, CancellationToken cancellationToken);
         Task Update(User user);
         Task Delete(long id);
     }

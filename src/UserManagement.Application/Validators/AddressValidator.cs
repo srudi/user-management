@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using UserManagement.Domain.Entities;
+using UserManagement.Domain.ValueObjects;
 
 namespace UserManagement.Application.Validators
 {

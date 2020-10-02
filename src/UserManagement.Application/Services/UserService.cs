@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
+using UserManagement.Application.Common;
 using UserManagement.Application.Exceptions;
 using UserManagement.Application.Interfaces;
 using UserManagement.Domain.Entities;
@@ -19,9 +19,9 @@ namespace UserManagement.Application.Services
             _validator = validator;
         }
 
-        public Task<IEnumerable<User>> GetAll(CancellationToken cancellationToken)
+        public Task<PagedResult<User>> GetAll(PageInfo pageInfo, CancellationToken cancellationToken)
         {
-            return _userRepository.GetAll(cancellationToken);
+            return _userRepository.GetAll(pageInfo, cancellationToken);
         }
 
         public async Task<User> Get(long id)
