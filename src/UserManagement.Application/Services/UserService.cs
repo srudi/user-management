@@ -11,16 +11,24 @@ namespace UserManagement.Application.Services
     class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IValidator<User> _validator;
+        private readonly IValidator<User> _userValidator;
+        private readonly IValidator<PageInfo> _pageInfoValidator;
 
-        public UserService(IUserRepository userRepository, IValidator<User> validator)
+        public UserService(IUserRepository userRepository, IValidator<User> userValidator, IValidator<PageInfo> pageInfoValidator)
         {
             _userRepository = userRepository;
-            _validator = validator;
+            _pageInfoValidator = pageInfoValidator;
+            _userValidator = userValidator;
         }
 
         public Task<PagedResult<User>> GetAll(PageInfo pageInfo, CancellationToken cancellationToken)
         {
+           var validationResult = _pageInfoValidator.Validate(pageInfo);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
+
             return _userRepository.GetAll(pageInfo, cancellationToken);
         }
 
@@ -34,7 +42,7 @@ namespace UserManagement.Application.Services
         }
         public async Task Update(User user)
         {
-            var validationResult = _validator.Validate(user);
+            var validationResult = _userValidator.Validate(user);
             if (!validationResult.IsValid)
             {
                 throw new ValidationException(validationResult.Errors);
@@ -49,7 +57,7 @@ namespace UserManagement.Application.Services
 
         public Task<long> Create(User user)
         {
-            var validationResult = _validator.Validate(user);
+            var validationResult = _userValidator.Validate(user);
             if (!validationResult.IsValid)
             {
                 throw new ValidationException(validationResult.Errors);

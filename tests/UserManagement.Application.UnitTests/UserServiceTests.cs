@@ -16,26 +16,40 @@ namespace UserManagement.Application.UnitTests
     {
         private readonly UserService _userService;
         private readonly Mock<IUserRepository> _repositoryMock = new Mock<IUserRepository>();
-        private readonly Mock<IValidator<User>> _validatorMock = new Mock<IValidator<User>>();
+        private readonly Mock<IValidator<User>> _userValidatorMock = new Mock<IValidator<User>>();
+        private readonly Mock<IValidator<PageInfo>> _pageInfoValidatorMock = new Mock<IValidator<PageInfo>>();
         private readonly Mock<ValidationResult> _validationResultMock = new Mock<ValidationResult>();
 
         public UserServiceTests()
         {
-            _validatorMock.Setup(v => v.Validate(It.IsAny<User>())).Returns(_validationResultMock.Object);
-            _userService = new UserService(_repositoryMock.Object, _validatorMock.Object);
+            _userValidatorMock.Setup(v => v.Validate(It.IsAny<User>())).Returns(_validationResultMock.Object);
+            _pageInfoValidatorMock.Setup(v => v.Validate(It.IsAny<PageInfo>())).Returns(_validationResultMock.Object);
+            _userService = new UserService(_repositoryMock.Object, _userValidatorMock.Object, _pageInfoValidatorMock.Object);
         }
 
         [Fact]
-        public async Task Given_ValidUserId_GetAll_CallsTheRepositoryGetAllMethod()
+        public async Task Given_ValidPageInfo_GetAll_CallsTheRepositoryGetAllMethod()
         {
             // Arrange
             var pageInfo = new PageInfo(0, 0);
+            _validationResultMock.Setup(r => r.IsValid).Returns(true);
 
             // Act 
-            await _userService.GetAll(pageInfo,default);
+            await _userService.GetAll(pageInfo, default);
 
             // Assert
             _repositoryMock.Verify(r => r.GetAll(pageInfo, default), Times.Once);
+        }
+
+        [Fact]
+        public async Task Given_InvalidPageInfo_GetAll_ThrowsValidationException()
+        {
+            // Arrange
+            var pageInfo = new PageInfo(0, 0);
+            _validationResultMock.Setup(r => r.IsValid).Returns(false);
+
+            // Act &  Assert
+            await Assert.ThrowsAsync<ValidationException>(async () => await _userService.GetAll(pageInfo, default));
         }
 
 
@@ -96,7 +110,7 @@ namespace UserManagement.Application.UnitTests
 
             // Act 
             await _userService.Update(user);
-            
+
             // Assert
             _repositoryMock.Verify(r => r.Update(user), Times.Once);
         }
@@ -114,7 +128,7 @@ namespace UserManagement.Application.UnitTests
         }
 
         [Fact]
-        public async Task Given_InvalidUser_Update_ThrowValidationException()
+        public async Task Given_InvalidUser_Update_ThrowsValidationException()
         {
             // Arrange
             var user = new User();
