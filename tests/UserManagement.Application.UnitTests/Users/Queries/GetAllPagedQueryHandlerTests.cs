@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using UserManagement.Application.Common;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.Users.Queries;
+using UserManagement.Application.Users.Queries.GetAll;
 using UserManagement.Domain.Entities;
 using Xunit;
 
@@ -35,7 +36,7 @@ namespace UserManagement.Application.UnitTests.Users.Queries
             var pageInfo = new PageInfo(10, 0) {TotalCount = users.Count() };
             var expectedUsers = _mapper.Map<IEnumerable<UserDto>>(users);
 
-            var query = new GetAllPagedQuery { PageInfo = pageInfo };
+            var query = new GetAllPagedQuery(pageInfo);
             _repositoryMock.Setup(r => r.GetAll(It.IsAny<PageInfo>(), default)).ReturnsAsync(users);
             _repositoryMock.Setup(r => r.GetTotalCount(default)).ReturnsAsync(1);
 

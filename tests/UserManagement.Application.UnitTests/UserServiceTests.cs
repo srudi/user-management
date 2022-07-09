@@ -53,26 +53,26 @@ namespace UserManagement.Application.UnitTests
         //}
 
 
-        [Fact]
-        public async Task Given_ValidUserId_Get_CallsTheRepositoryGetMethod()
-        {
-            // Arrange
-            long userId = 1;
-            _repositoryMock.Setup(r => r.Get(userId)).ReturnsAsync(new User());
+        //[Fact]
+        //public async Task Given_ValidUserId_Get_CallsTheRepositoryGetMethod()
+        //{
+        //    // Arrange
+        //    long userId = 1;
+        //    _repositoryMock.Setup(r => r.Get(userId)).ReturnsAsync(new User());
 
-            // Act 
-            await _userService.Get(userId);
+        //    // Act 
+        //    await _userService.Get(userId);
 
-            // Assert
-            _repositoryMock.Verify(r => r.Get(userId), Times.Once);
-        }
+        //    // Assert
+        //    _repositoryMock.Verify(r => r.Get(userId), Times.Once);
+        //}
 
-        [Fact]
-        public async Task Given_InvalidUserId_Get_ThrowsNotFoundException()
-        {
-            long userId = 0;
-            await Assert.ThrowsAsync<NotFoundException>(async () => await _userService.Get(userId));
-        }
+        //[Fact]
+        //public async Task Given_InvalidUserId_Get_ThrowsNotFoundException()
+        //{
+        //    long userId = 0;
+        //    await Assert.ThrowsAsync<NotFoundException>(async () => await _userService.Get(userId));
+        //}
 
         [Fact]
         public async Task Given_ValidUser_Create_CallsTheRepositoryCreateMethod()

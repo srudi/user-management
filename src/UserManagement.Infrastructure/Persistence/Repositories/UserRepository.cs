@@ -51,7 +51,8 @@ namespace UserManagement.Infrastructure.Persistence.Repositories
         {
             var findOptions = new FindOptions<User, User> { Skip = pageInfo.CalculateSkip(), Limit = pageInfo.PageSize };
             var users = (await _context.Users.FindAsync(FilterDefinition<User>.Empty, findOptions, cancellationToken)).ToList();
-            return _mapper.Map<IEnumerable<DomainUser>>(users);
+            var domainUsers = _mapper.Map<IEnumerable<DomainUser>>(users);
+            return domainUsers; 
         }
 
         public async Task<long> GetTotalCount(CancellationToken cancellationToken)

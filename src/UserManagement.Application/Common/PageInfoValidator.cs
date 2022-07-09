@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using UserManagement.Application.Common;
 
-namespace UserManagement.Application.Validators
+namespace UserManagement.Application.Common
 {
     class PageInfoValidator : AbstractValidator<PageInfo>
     {

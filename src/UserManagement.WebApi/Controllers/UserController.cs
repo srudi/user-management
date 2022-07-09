@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UserManagement.Application.Common;
 using UserManagement.Application.Services;
 using UserManagement.Application.Users.Queries;
+using UserManagement.Application.Users.Queries.GetAll;
 using UserManagement.Domain.Entities;
 
 namespace UserManagement.WebAPI.Controllers
@@ -27,8 +28,7 @@ namespace UserManagement.WebAPI.Controllers
         public async Task<ActionResult<IEnumerable<User>>> GetAll(int pageSize, int pageIndex, CancellationToken cancellationToken)
         {
             var pageInfo = new PageInfo(pageSize: pageSize, pageIndex: pageIndex);
-            var users = await Mediator.Send(new GetAllPagedQuery {PageInfo = pageInfo }, cancellationToken);
-            //var users = await _userService.GetAll(pageInfo, cancellationToken);
+            var users = await Mediator.Send(new GetAllPagedQuery(pageInfo), cancellationToken);
             return Ok(users);
         }
 
