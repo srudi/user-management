@@ -27,30 +27,30 @@ namespace UserManagement.Application.UnitTests
             _userService = new UserService(_repositoryMock.Object, _userValidatorMock.Object, _pageInfoValidatorMock.Object);
         }
 
-        [Fact]
-        public async Task Given_ValidPageInfo_GetAll_CallsTheRepositoryGetAllMethod()
-        {
-            // Arrange
-            var pageInfo = new PageInfo(0, 0);
-            _validationResultMock.Setup(r => r.IsValid).Returns(true);
+        //[Fact]
+        //public async Task Given_ValidPageInfo_GetAll_CallsTheRepositoryGetAllMethod()
+        //{
+        //    // Arrange
+        //    var pageInfo = new PageInfo(0, 0);
+        //    _validationResultMock.Setup(r => r.IsValid).Returns(true);
 
-            // Act 
-            await _userService.GetAll(pageInfo, default);
+        //    // Act 
+        //    await _userService.GetAll(pageInfo, default);
 
-            // Assert
-            _repositoryMock.Verify(r => r.GetAll(pageInfo, default), Times.Once);
-        }
+        //    // Assert
+        //    _repositoryMock.Verify(r => r.GetAll(pageInfo, default), Times.Once);
+        //}
 
-        [Fact]
-        public async Task Given_InvalidPageInfo_GetAll_ThrowsValidationException()
-        {
-            // Arrange
-            var pageInfo = new PageInfo(0, 0);
-            _validationResultMock.Setup(r => r.IsValid).Returns(false);
+        //[Fact]
+        //public async Task Given_InvalidPageInfo_GetAll_ThrowsValidationException()
+        //{
+        //    // Arrange
+        //    var pageInfo = new PageInfo(0, 0);
+        //    _validationResultMock.Setup(r => r.IsValid).Returns(false);
 
-            // Act &  Assert
-            await Assert.ThrowsAsync<ValidationException>(async () => await _userService.GetAll(pageInfo, default));
-        }
+        //    // Act &  Assert
+        //    await Assert.ThrowsAsync<ValidationException>(async () => await _userService.GetAll(pageInfo, default));
+        //}
 
 
         [Fact]

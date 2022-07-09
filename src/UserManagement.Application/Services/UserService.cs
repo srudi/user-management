@@ -21,16 +21,16 @@ namespace UserManagement.Application.Services
             _userValidator = userValidator;
         }
 
-        public Task<PagedResult<User>> GetAll(PageInfo pageInfo, CancellationToken cancellationToken)
-        {
-           var validationResult = _pageInfoValidator.Validate(pageInfo);
-            if (!validationResult.IsValid)
-            {
-                throw new ValidationException(validationResult.Errors);
-            }
+        //public Task<PagedResult<User>> GetAll(PageInfo pageInfo, CancellationToken cancellationToken)
+        //{
+        //   var validationResult = _pageInfoValidator.Validate(pageInfo);
+        //    if (!validationResult.IsValid)
+        //    {
+        //        throw new ValidationException(validationResult.Errors);
+        //    }
 
-            return _userRepository.GetAll(pageInfo, cancellationToken);
-        }
+        //    return _userRepository.GetAll(pageInfo, cancellationToken);
+        //}
 
         public async Task<User> Get(long id)
         {

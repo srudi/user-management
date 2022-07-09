@@ -9,7 +9,7 @@ namespace UserManagement.Application.Services
     {
         Task<long> Create(User user);
         Task<User> Get(long id);
-        Task<PagedResult<User>> GetAll(PageInfo pageInfo, CancellationToken cancellationToken);
+        //Task<PagedResult<User>> GetAll(PageInfo pageInfo, CancellationToken cancellationToken);
         Task Update(User user);
         Task Delete(long id);
     }

@@ -3,21 +3,18 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using UserManagement.Application;
 using UserManagement.Application.Common;
 using UserManagement.Application.Services;
+using UserManagement.Application.Users.Queries;
 using UserManagement.Domain.Entities;
 
 namespace UserManagement.WebAPI.Controllers
 {
-
-    [Route("api/[controller]")]
-    [ApiController]
     [Produces("application/json")]
-    public class UserController : ControllerBase
+    public class UserController : ApiControllerBase
     {
         private readonly IUserService _userService;
-
+            
         public UserController(IUserService userService)
         {
             _userService = userService;
@@ -30,7 +27,8 @@ namespace UserManagement.WebAPI.Controllers
         public async Task<ActionResult<IEnumerable<User>>> GetAll(int pageSize, int pageIndex, CancellationToken cancellationToken)
         {
             var pageInfo = new PageInfo(pageSize: pageSize, pageIndex: pageIndex);
-            var users = await _userService.GetAll(pageInfo, cancellationToken);
+            var users = await Mediator.Send(new GetAllPagedQuery {PageInfo = pageInfo }, cancellationToken);
+            //var users = await _userService.GetAll(pageInfo, cancellationToken);
             return Ok(users);
         }
 

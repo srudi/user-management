@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using System;
+using System.Reflection;
 using UserManagement.Application.Common;
 using UserManagement.Application.Services;
 using UserManagement.Application.Validators;
@@ -12,6 +12,7 @@ namespace UserManagement.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IValidator<User>, UserValidator>();
             services.AddScoped<IValidator<PageInfo>, PageInfoValidator>();
