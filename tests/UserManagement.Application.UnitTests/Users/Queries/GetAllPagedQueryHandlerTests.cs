@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using UserManagement.Application.Common;
 using UserManagement.Application.Interfaces;
-using UserManagement.Application.Users.Queries;
+using UserManagement.Application.Users.Dtos;
 using UserManagement.Application.Users.Queries.GetAll;
 using UserManagement.Domain.Entities;
 using Xunit;

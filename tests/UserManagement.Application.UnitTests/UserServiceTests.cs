@@ -100,43 +100,7 @@ namespace UserManagement.Application.UnitTests
             await Assert.ThrowsAsync<ValidationException>(async () => await _userService.Create(user));
         }
 
-        [Fact]
-        public async Task Given_ValidUser_Update_CallsTheRepositoryUpdateMethod()
-        {
-            // Arrange
-            var user = new User();
-            _validationResultMock.Setup(r => r.IsValid).Returns(true);
-            _repositoryMock.Setup(r => r.Get(It.IsAny<long>())).ReturnsAsync(user);
 
-            // Act 
-            await _userService.Update(user);
-
-            // Assert
-            _repositoryMock.Verify(r => r.Update(user), Times.Once);
-        }
-
-
-        [Fact]
-        public async Task Given_ValidUserButDoesNotExist_Update_ThrowsNotFoundException()
-        {
-            // Arrange
-            var user = new User();
-            _validationResultMock.Setup(r => r.IsValid).Returns(true);
-
-            // Act & Assert
-            await Assert.ThrowsAsync<NotFoundException>(async () => await _userService.Update(user));
-        }
-
-        [Fact]
-        public async Task Given_InvalidUser_Update_ThrowsValidationException()
-        {
-            // Arrange
-            var user = new User();
-            _validationResultMock.Setup(r => r.IsValid).Returns(false);
-
-            // Act & Assert
-            await Assert.ThrowsAsync<ValidationException>(async () => await _userService.Update(user));
-        }
 
         [Fact]
         public async Task Given_UserId_Delete_CallsTheRepositoryDeleteMethod()

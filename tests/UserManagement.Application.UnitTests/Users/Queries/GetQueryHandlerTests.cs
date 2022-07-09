@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using UserManagement.Application.Exceptions;
 using UserManagement.Application.Interfaces;
-using UserManagement.Application.Users.Queries;
+using UserManagement.Application.Users.Dtos;
 using UserManagement.Application.Users.Queries.Get;
 using UserManagement.Domain.Entities;
 using Xunit;

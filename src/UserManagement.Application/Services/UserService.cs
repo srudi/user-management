@@ -32,28 +32,28 @@ namespace UserManagement.Application.Services
         //    return _userRepository.GetAll(pageInfo, cancellationToken);
         //}
 
-        public async Task<User> Get(long id)
-        {
-            var user = await _userRepository.Get(id);
-            if (user == null)
-                throw new NotFoundException(nameof(User), id);
+        //public async Task<User> Get(long id)
+        //{
+        //    var user = await _userRepository.Get(id);
+        //    if (user == null)
+        //        throw new NotFoundException(nameof(User), id);
 
-            return user;
-        }
-        public async Task Update(User user)
-        {
-            var validationResult = _userValidator.Validate(user);
-            if (!validationResult.IsValid)
-            {
-                throw new ValidationException(validationResult.Errors);
-            }
+        //    return user;
+        //}
+        //public async Task Update(User user)
+        //{
+        //    var validationResult = _userValidator.Validate(user);
+        //    if (!validationResult.IsValid)
+        //    {
+        //        throw new ValidationException(validationResult.Errors);
+        //    }
 
-            var foundUser = await _userRepository.Get(user.Id);
-            if (foundUser == null)
-                throw new NotFoundException(nameof(User), user.Id);
+        //    var foundUser = await _userRepository.Get(user.Id);
+        //    if (foundUser == null)
+        //        throw new NotFoundException(nameof(User), user.Id);
 
-            await _userRepository.Update(user);
-        }
+        //    await _userRepository.Update(user);
+        //}
 
         public Task<long> Create(User user)
         {

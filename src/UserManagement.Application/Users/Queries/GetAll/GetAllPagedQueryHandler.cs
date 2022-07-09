@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UserManagement.Application.Common;
 using UserManagement.Application.Interfaces;
+using UserManagement.Application.Users.Dtos;
 
 namespace UserManagement.Application.Users.Queries.GetAll
 {
