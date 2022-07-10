@@ -33,7 +33,7 @@ namespace UserManagement.Application.UnitTests.Users.Queries
         {
             // Arrange
             var users = new Fixture().CreateMany<User>();
-            var pageInfo = new PageInfo(10, 0) {TotalCount = users.Count() };
+            var pageInfo = new PageInfo(10, 0) { TotalCount = users.Count() };
             var expectedUsers = _mapper.Map<IEnumerable<UserDto>>(users);
 
             var query = new GetAllPagedQuery(pageInfo);

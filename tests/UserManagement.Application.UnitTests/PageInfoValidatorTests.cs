@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 using UserManagement.Application.Common;
 using Xunit;
 
-namespace UserManagement.Application.UnitTests.Common
+namespace UserManagement.Application.UnitTests
 {
-    public  class PageInfoValidatorTests
+    public class PageInfoValidatorTests
     {
         private readonly IValidator<PageInfo> _validator = new PageInfoValidator();
 
         [Theory]
-        [InlineData(0,0, false)]
+        [InlineData(0, 0, false)]
         [InlineData(1, 0, true)]
         [InlineData(0, 1, false)]
         [InlineData(1, 1, true)]

@@ -28,7 +28,7 @@ namespace UserManagement.Infrastructure.UnitTests.Persistence
         }
 
         [Fact]
-        public async Task Call_Create_ShouldCall_CreateOnDbContext()
+        public async Task When_CreateCalled_Then_ShouldCallCreateOnDbContext()
         {
             // Arrange
             var user = new DomainUser();
@@ -45,7 +45,7 @@ namespace UserManagement.Infrastructure.UnitTests.Persistence
         }
 
         [Fact]
-        public async Task Call_Delete_Successfully_ShouldNotThrowException()
+        public async Task When_DeleteCalledSuccessfully_Then_ShouldNotThrowException()
         {
             // Arrange
             var userIdToDelete = 1;
@@ -62,7 +62,7 @@ namespace UserManagement.Infrastructure.UnitTests.Persistence
         [InlineData(false, 1)]
         [InlineData(true, 0)]
         [InlineData(false, 0)]
-        public async Task Call_Delete_When_DeleteResult_DoesNotIndicateSuccess_ThrowsException(bool isAcknowledged, long deletedCount)
+        public async Task When_DeleteCalledDoesNotIndicateSuccess_Then_ThrowsException(bool isAcknowledged, long deletedCount)
         {
             // Arrange
             var userIdToDelete = 1;
@@ -76,7 +76,7 @@ namespace UserManagement.Infrastructure.UnitTests.Persistence
         }
 
         [Fact]
-        public async Task Call_Update_Successfully_ShouldNotThrowException()
+        public async Task When_UpdateCalledSuccessfully_Then_ShouldNotThrowException()
         {
             // Arrange
             var user = new DomainUser();
@@ -90,10 +90,10 @@ namespace UserManagement.Infrastructure.UnitTests.Persistence
         }
 
         [Theory]
-        [InlineData(false, 1, false)]
-        [InlineData(true, 0, false)]
-        [InlineData(false, 0, false)]
-        public async Task Call_Update_When_ReplaceOneResult_DoesNotIndicateSuccess_ThrowsException(bool isAcknowledged, long modifiedCount, bool expectedResult)
+        [InlineData(false, 1)]
+        [InlineData(true, 0)]
+        [InlineData(false, 0)]
+        public async Task When_UpdateCalledReplaceOneResultDoesNotIndicateSuccess_Then_ThrowsException(bool isAcknowledged, long modifiedCount)
         {
             // Arrange
             var user = new DomainUser();
@@ -111,7 +111,7 @@ namespace UserManagement.Infrastructure.UnitTests.Persistence
         [InlineData(5,0,5)]
         [InlineData(5,1,0)]
         [InlineData(2,2,1)]
-        public async Task Call_GetAll_ShouldCall_FindAsyncOnDbContext_And_ReturnPagedUsersList(int pageSize, int pageIndex, int expcetedPagedUserCount)
+        public async Task When_GetAllCalled_Then_ShouldCallFindAsyncOnDbContext_And_ReturnPagedUsersList(int pageSize, int pageIndex, int expcetedPagedUserCount)
         {
             // Arrange
             var pageInfo = new PageInfo(pageSize, pageIndex);
@@ -132,9 +132,6 @@ namespace UserManagement.Infrastructure.UnitTests.Persistence
 
             // Assert
             Assert.Equal(expcetedPagedUserCount, pagedUsers.Count());
-            //Assert.Equal(pageSize, pagedUsers.PageInfo.PageSize);
-            //Assert.Equal(pageIndex, pagedUsers.PageInfo.PageIndex);
-            //Assert.Equal(users.Count(), pagedUsers.PageInfo.TotalCount);
             _dbContextMock.Verify(db => db.Users.FindAsync(FilterDefinition<User>.Empty, It.IsAny<FindOptions<User, User>>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
