@@ -2,10 +2,7 @@
 using AutoMapper;
 using FluentAssertions;
 using Moq;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using UserManagement.Application.Common;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.Users.Dtos;

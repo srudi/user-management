@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace UserManagement.Application.Common
+﻿namespace UserManagement.Application.Common
 {
     public class PagedResult<T>
     {

@@ -1,12 +1,7 @@
-﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel.Client;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using Moq;
 using Moq.Language.Flow;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using UserManagement.Infrastructure.Persistence.Contexts;
-using UserManagement.Infrastructure.Persistence.Contexts.Models;
 
 namespace UserManagement.Infrastructure.UnitTests.FakeDbContext
 {

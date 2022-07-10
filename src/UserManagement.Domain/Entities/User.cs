@@ -4,13 +4,13 @@ namespace UserManagement.Domain.Entities
 {
     public class User
     {
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public string Username { get; set; }
-        public string Email { get; set; }
-        public Address Address { get; set; }
-        public string Phone { get; set; }
-        public string Website { get; set; }
-        public Company Company { get; set; }
+        public long Id { get; init; }
+        public string Name { get; init; }
+        public string Username { get; init; }
+        public string Email { get; init; }
+        public Address Address { get; init; }
+        public string Phone { get; init; }
+        public string Website { get; init; }
+        public Company Company { get; init; }
     }
 }

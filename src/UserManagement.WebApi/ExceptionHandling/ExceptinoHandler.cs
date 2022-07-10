@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
-namespace UserManagement.WebAPI.Attributes
+namespace UserManagement.WebAPI.ExceptionHandling
 {
     /// <summary>
     /// For handling unknown, unexpected exceptions using the problem details standard.

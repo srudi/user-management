@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using UserManagement.Application.Exceptions;
 using Mvc = Microsoft.AspNetCore.Mvc;
 
-namespace UserManagement.WebAPI.Attributes
+namespace UserManagement.WebAPI.ExceptionHandling
 {
     public class ExceptionFilter : ExceptionFilterAttribute
     {
         const string ApplicationProblemJson = "application/problem+json";
-        private static readonly Dictionary<Type, Func<Exception, Mvc.ProblemDetails>> problemDetailsFactory = new()
+        private static readonly Dictionary<Type, Func<Exception, ProblemDetails>> problemDetailsFactory = new()
         {
             { typeof(NotFoundException), _ => new ProblemDetails { Type = "https://tools.ietf.org/html/rfc7231#section-6.5.4", Status = StatusCodes.Status404NotFound } },
             { typeof(ValidationException), ex =>

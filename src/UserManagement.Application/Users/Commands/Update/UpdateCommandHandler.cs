@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 using UserManagement.Application.Exceptions;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.Users.Dtos;

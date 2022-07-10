@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MongoDB.Driver;
 using UserManagement.Application.Common;
 using UserManagement.Application.Interfaces;

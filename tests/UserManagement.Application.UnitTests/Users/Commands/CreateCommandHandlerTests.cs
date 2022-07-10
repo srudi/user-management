@@ -3,7 +3,6 @@ using AutoMapper;
 using FluentAssertions;
 using Moq;
 using System.Reflection;
-using System.Threading.Tasks;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.Users.Commands.Create;
 using UserManagement.Application.Users.Dtos;

@@ -2,7 +2,7 @@
 {
     public class Geo
     {
-        public string Lat { get; set; }
-        public string Lng { get; set; }
+        public string Lat { get; init; }
+        public string Lng { get; init; }
     }
 }

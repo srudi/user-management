@@ -2,7 +2,6 @@
 using AutoMapper;
 using Moq;
 using System.Reflection;
-using System.Threading.Tasks;
 using UserManagement.Application.Exceptions;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.Users.Commands.Update;

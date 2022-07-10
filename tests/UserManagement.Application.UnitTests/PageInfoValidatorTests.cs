@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using FluentValidation;
-using System.Threading.Tasks;
 using UserManagement.Application.Common;
 using Xunit;
 

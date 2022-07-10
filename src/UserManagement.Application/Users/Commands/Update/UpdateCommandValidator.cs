@@ -3,7 +3,7 @@ using UserManagement.Application.Users.Dtos;
 
 namespace UserManagement.Application.Users.Commands.Update
 {
-    internal class UpdateCommandValidator : AbstractValidator<UpdateCommand>
+    class UpdateCommandValidator : AbstractValidator<UpdateCommand>
     {
         public UpdateCommandValidator(IValidator<UserDto> userValidator)
         {

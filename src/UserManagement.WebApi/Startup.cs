@@ -1,6 +1,6 @@
 using UserManagement.Application;
 using UserManagement.Infrastructure;
-using UserManagement.WebAPI.Attributes;
+using UserManagement.WebAPI.ExceptionHandling;
 
 namespace QuestUserManagement
 {

@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UserManagement.Application.Users.Dtos
+﻿namespace UserManagement.Application.Users.Dtos
 {
     public class AddressDto
     {
-        public string Street { get; set; }
-        public string Suite { get; set; }
-        public string City { get; set; }
-        public string Zipcode { get; set; }
-        public GeoDto Geo { get; set; }
+        public string Street { get; init; }
+        public string Suite { get; init; }
+        public string City { get; init; }
+        public string Zipcode { get; init; }
+        public GeoDto Geo { get; init; }
     }
 }
