@@ -27,7 +27,7 @@ namespace UserManagement.Application.UnitTests.Users.Queries
         }
 
         [Fact]
-        public async Task Given_ValidUserId_Get_CallsTheRepositoryGetMethod()
+        public async Task Given_ValidUserId_When_GetCalled_Then_CallsTheRepositoryGetMethod()
         {
             // Arrange
             var user = new Fixture().Create<User>();
@@ -43,7 +43,7 @@ namespace UserManagement.Application.UnitTests.Users.Queries
         }
 
         [Fact]
-        public async Task Given_InvalidUserId_Get_ThrowsNotFoundException()
+        public async Task Given_InvalidUserId_When_GetCalled_Then_ThrowsNotFoundException()
         {
             long userId = 0;
             await Assert.ThrowsAsync<NotFoundException>(async () => await _handler.Handle(new GetQuery(userId), default));

@@ -8,9 +8,9 @@ using UserManagement.Domain.Entities;
 
 namespace UserManagement.Application.Users.Commands.Create
 {
-    public record CreateCommand(UserDto User) : IRequest<long>;
+    public record CreateCommand(UserDto User) : IRequest<UserDto>;
 
-    internal class CreateCommandHandler : IRequestHandler<CreateCommand, long>
+    internal class CreateCommandHandler : IRequestHandler<CreateCommand, UserDto>
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
@@ -21,10 +21,12 @@ namespace UserManagement.Application.Users.Commands.Create
             _mapper = mapper;
         }
 
-        public Task<long> Handle(CreateCommand command, CancellationToken cancellationToken)
+        public async Task<UserDto> Handle(CreateCommand command, CancellationToken cancellationToken)
         {
             var domainUser = _mapper.Map<User>(command.User);
-            return _userRepository.Create(domainUser);
+            var createduserId = await _userRepository.Create(domainUser);
+            var createdUser = await _userRepository.Get(createduserId);
+            return _mapper.Map<UserDto>(createdUser);
         }
     }
 }

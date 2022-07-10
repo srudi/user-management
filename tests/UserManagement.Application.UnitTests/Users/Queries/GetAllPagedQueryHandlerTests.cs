@@ -29,7 +29,7 @@ namespace UserManagement.Application.UnitTests.Users.Queries
         }
 
         [Fact]
-        public async Task Given_ValidPageInfo_GetAll_CallsTheRepositoryGetAllMethod()
+        public async Task Given_ValidPageInfo_When_GetAllCalled_Then_CallsTheRepositoryGetAllMethod()
         {
             // Arrange
             var users = new Fixture().CreateMany<User>();

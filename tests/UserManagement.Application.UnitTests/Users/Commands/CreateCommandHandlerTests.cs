@@ -25,21 +25,23 @@ namespace UserManagement.Application.UnitTests.Users.Commands
             _handler = new CreateCommandHandler(_repositoryMock.Object, _mapper);
         }
 
-
         [Fact]
-        public async Task Given_ValidUser_Create_CallsTheRepositoryCreateMethod()
+        public async Task Given_ValidUser_When_CreateCalled_Then_CallsTheRepositoryCreateMethodAndReturnsTheCreatedUser()
         {
             // Arrange
-            var expectedUserId = 100;
             var user = new Fixture().Create<UserDto>();
+            var domainUser = _mapper.Map<User>(user);
+
             var command = new CreateCommand(user);
-            _repositoryMock.Setup(r => r.Create(It.IsAny<User>())).ReturnsAsync(expectedUserId);
+            _repositoryMock.Setup(r => r.Create(It.IsAny<User>())).ReturnsAsync(It.IsAny<long>());
+            _repositoryMock.Setup(r => r.Get(It.IsAny<long>())).ReturnsAsync(domainUser);
+
             // Act 
-            var userId = await _handler.Handle(command, default);
+            var createdUser = await _handler.Handle(command, default);
 
             // Assert
             _repositoryMock.Verify(r => r.Create(It.IsAny<User>()), Times.Once);
-            userId.Should().Be(expectedUserId);
+            createdUser.Should().BeEquivalentTo(user);
         }
     }
 }

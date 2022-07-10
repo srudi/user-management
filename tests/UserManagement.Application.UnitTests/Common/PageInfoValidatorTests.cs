@@ -2,7 +2,6 @@
 using FluentValidation;
 using System.Threading.Tasks;
 using UserManagement.Application.Common;
-using UserManagement.Application.Validators;
 using Xunit;
 
 namespace UserManagement.Application.UnitTests.Common

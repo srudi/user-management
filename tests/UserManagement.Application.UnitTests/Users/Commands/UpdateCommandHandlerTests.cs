@@ -26,7 +26,7 @@ namespace UserManagement.Application.UnitTests.Users.Commands
         }
 
         [Fact]
-        public async Task Given_ValidUser_Update_CallsTheRepositoryUpdateMethod()
+        public async Task Given_ValidExistingUser_When_UpdateCallaed_Then_CallsTheRepositoryUpdateMethod()
         {
             // Arrange
             var user = new Fixture().Create<UserDto>();
@@ -43,7 +43,7 @@ namespace UserManagement.Application.UnitTests.Users.Commands
         }
 
         [Fact]
-        public async Task Given_ValidUserButDoesNotExist_Update_ThrowsNotFoundException()
+        public async Task Given_NonExistingUser_When_UpdateCalled_ThrowsNotFoundException()
         {
             // Arrange
             var user = new UserDto();

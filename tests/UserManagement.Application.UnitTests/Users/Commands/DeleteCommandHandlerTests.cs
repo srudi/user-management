@@ -23,7 +23,7 @@ namespace UserManagement.Application.UnitTests.Users.Commands
         }
 
         [Fact]
-        public async Task Given_UserId_Delete_CallsTheRepositoryDeleteMethod()
+        public async Task Given_ExistingUserId_When_DeleteCalled_Then_CallsTheRepositoryDeleteMethod()
         {
             // Arrange
             long userId = 1;
@@ -38,7 +38,7 @@ namespace UserManagement.Application.UnitTests.Users.Commands
         }
 
         [Fact]
-        public async Task Given_UserIdButDoesNotExist_Delete_ThrowsNotFoundException()
+        public async Task Given_NonExistingUserId_When_DeleteCalled_Then_ThrowsNotFoundException()
         {
             // Arrange
             long userId = 1;
@@ -47,7 +47,6 @@ namespace UserManagement.Application.UnitTests.Users.Commands
             // Act & Assert
             await Assert.ThrowsAsync<NotFoundException>(async () => await _handler.Handle(command));
         }
-
 
         class TestHandler : DeleteCommandHandler
         {
