@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using MediatR;
 using UserManagement.Application.Common;
-using UserManagement.Application.Services;
 using UserManagement.Application.Validators;
 using UserManagement.Application.Users.Queries.GetAll;
 using UserManagement.Application.Users.Dtos;
@@ -17,7 +16,6 @@ namespace UserManagement.Application
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
-            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IValidator<UserDto>, UserValidator>();
             services.AddScoped<IValidator<PageInfo>, PageInfoValidator>();
             services.AddScoped<IValidator<GetAllPagedQuery>, GetAllPagedQueryValidator>();

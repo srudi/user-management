@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UserManagement.Application.Common;
-using UserManagement.Application.Services;
 using UserManagement.Application.Users.Commands.Create;
 using UserManagement.Application.Users.Commands.Delete;
 using UserManagement.Application.Users.Commands.Update;
@@ -18,13 +17,6 @@ namespace UserManagement.WebAPI.Controllers
     [Produces("application/json")]
     public class UserController : ApiControllerBase
     {
-        private readonly IUserService _userService;
-
-        public UserController(IUserService userService)
-        {
-            _userService = userService;
-        }
-
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

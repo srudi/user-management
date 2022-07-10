@@ -2,7 +2,9 @@
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using UserManagement.Application.Exceptions;
 using UserManagement.Application.Interfaces;
+using UserManagement.Domain.Entities;
 
 namespace UserManagement.Application.Users.Commands.Delete
 {
@@ -19,9 +21,14 @@ namespace UserManagement.Application.Users.Commands.Delete
             _mapper = mapper;
         }
 
-        protected override Task Handle(DeleteCommand command, CancellationToken cancellationToken)
+        protected override async Task Handle(DeleteCommand command, CancellationToken cancellationToken)
         {
-            return _userRepository.Delete(command.Id);
+            var user = await _userRepository.Get(command.Id);
+
+            if (user == null)
+                throw new NotFoundException(nameof(User), command.Id);
+
+            await _userRepository.Delete(command.Id);
         }
     }
 }

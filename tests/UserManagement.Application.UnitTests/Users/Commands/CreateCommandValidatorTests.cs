@@ -7,12 +7,12 @@ using Xunit;
 
 namespace UserManagement.Application.UnitTests.Users.Commands
 {
-    public class UpdateCommandValidatorTests
+    public class CreateCommandValidatorTests
     {
         private readonly IValidator<UserDto> _validator = new UserValidator();
 
         [Fact]
-        public async Task Given_InvalidUser_When_UpdateCalled_Then_ShouldRetrunsValidationErrors()
+        public async Task Given_InvalidUser_When_CreateCalled_Then_ShouldRetrunsValidationErrors()
         {
             // Arrange
             var user = new UserDto();
