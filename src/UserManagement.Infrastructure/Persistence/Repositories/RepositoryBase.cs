@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using UserManagement.Infrastructure.Persistence.Contexts;
 using UserManagement.Infrastructure.Persistence.Contexts.Models;
 

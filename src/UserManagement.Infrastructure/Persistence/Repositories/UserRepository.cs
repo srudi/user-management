@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MongoDB.Driver;
 using UserManagement.Application.Common;
 using UserManagement.Application.Interfaces;
@@ -47,14 +44,17 @@ namespace UserManagement.Infrastructure.Persistence.Repositories
             return _mapper.Map<DomainUser>(user);
         }
 
-        public async Task<PagedResult<DomainUser>> GetAll(PageInfo pageInfo, CancellationToken cancellationToken)
+        public async Task<IEnumerable<DomainUser>> GetAll(PageInfo pageInfo, CancellationToken cancellationToken)
         {
             var findOptions = new FindOptions<User, User> { Skip = pageInfo.CalculateSkip(), Limit = pageInfo.PageSize };
-
             var users = (await _context.Users.FindAsync(FilterDefinition<User>.Empty, findOptions, cancellationToken)).ToList();
             var domainUsers = _mapper.Map<IEnumerable<DomainUser>>(users);
-            pageInfo.TotalCount = await _context.Users.CountDocumentsAsync(FilterDefinition<User>.Empty, null, cancellationToken);
-            return new PagedResult<DomainUser>(domainUsers, pageInfo);
+            return domainUsers; 
+        }
+
+        public async Task<long> GetTotalCount(CancellationToken cancellationToken)
+        { 
+            return await _context.Users.CountDocumentsAsync(FilterDefinition<User>.Empty, null, cancellationToken);
         }
 
         public async Task Update(DomainUser domainUser)
